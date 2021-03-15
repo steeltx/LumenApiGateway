@@ -38,4 +38,21 @@ $router->group(['middleware' => 'client.credentials'], function () use ($router)
     $router->put('/books/{book}', 'BookController@update');
     $router->patch('/books/{book}', 'BookController@update');
     $router->delete('/books/{book}', 'BookController@destroy');
+
+    /**
+     * Rutas de usuarios
+     */
+    $router->get('/users', 'UserController@index');
+    $router->post('/users', 'UserController@store');
+    $router->get('/users/{user}', 'UserController@show');
+    $router->put('/users/{user}', 'UserController@update');
+    $router->patch('/users/{user}', 'UserController@update');
+    $router->delete('/users/{user}', 'UserController@destroy');
+});
+
+/**
+ * Rutas protegias por credenciales de usuario
+ */
+$router->group(['middleware' => 'auth:api'], function () use ($router) {
+    $router->get('/users/me', 'UserController@me');
 });
